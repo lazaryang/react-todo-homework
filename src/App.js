@@ -12,14 +12,7 @@ class App extends React.Component {
     super();
     this.state = {
       todos: [
-        {
-          id: 0,
-          value: 'hiiii',
-        },
-        {
-          id: 1,
-          value: 'hehhehe',
-        }
+        
       ],
       inputValue: '',
     }
@@ -34,7 +27,7 @@ class App extends React.Component {
   onSubmit = () => {
     this.setState({
       todos: [
-        ...this.state.todos,
+        ... this.state.todos,
         {
           id: this.state.todos.length + 1,
           value: this.state.inputValue,
@@ -42,22 +35,29 @@ class App extends React.Component {
       ]
     })    
   }
-
+  
+   myFunction = (index) => {
+    const todos = this.state.todos.filter(todos => todos.id !== index);
+    this.setState({todos:todos})
+  }
 
   render() {
+    const to = this.state.todos;
+    console.log('to',to)
     return (
       <div className="App">
         <Header />
-        <div>
-          {
-            this.state.todos.map((item) => (
-              <TodoItem key={item.id} value={item.value} />
-            ))
-          }
-        </div>
+       
         <div>
           <Input handleChange={this.handleChange}  />
           <Button value="Submit" onClick={this.onSubmit} />
+        </div> 
+        <div>
+          {
+            this.state.todos.map((todos,index) => (
+              <TodoItem key={todos.id} value={todos.value} id={todos.id} myFunction={this.myFunction} />
+            ))
+          }
         </div>
         <Footer />
       </div>
